@@ -1,0 +1,897 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CuckooAPI &#8212; cuckoo-modified-api 20160927.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '20160927.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="cuckoo-modified-api 20160927.1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CuckooAPI</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Imports</span>
+<span class="c1">#</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># The Main Function</span>
+<span class="c1">#</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main function for this library</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a library and not a script.  It cannot be run as a script.&quot;</span><span class="p">)</span>
+    <span class="k">pass</span></div>
+
+
+<span class="c1">#</span>
+<span class="c1"># Static Functions</span>
+<span class="c1">#</span>
+<div class="viewcode-block" id="buildapiurl"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.buildapiurl">[docs]</a><span class="k">def</span> <span class="nf">buildapiurl</span><span class="p">(</span><span class="n">proto</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span>
+                <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">APIPY</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a URL for the Cuckoo API</span>
+
+<span class="sd">    :param proto: http or https</span>
+<span class="sd">    :param host: Hostname or IP address</span>
+<span class="sd">    :param port: The port of the Cuckoo API server</span>
+<span class="sd">    :param action: The action to perform with the API</span>
+<span class="sd">    :returns: The URL</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">://</span><span class="si">{1}</span><span class="s2">:</span><span class="si">{2}{3}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">proto</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">://</span><span class="si">{1}</span><span class="s2">:</span><span class="si">{2}</span><span class="s2">/api</span><span class="si">{3}</span><span class="s2">/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">proto</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span></div>
+
+
+<span class="c1">#</span>
+<span class="c1"># Classes</span>
+<span class="c1">#</span>
+<div class="viewcode-block" id="CuckooAPI"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to hold Cuckoo API data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span> <span class="n">proto</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">,</span>
+                 <span class="n">APIPY</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param host: Hostname or IP address of Cuckoo server</span>
+<span class="sd">        :param port: The port of the Cuckoo server</span>
+<span class="sd">        :param proto: http or https</span>
+<span class="sd">        :param APIPY: Set to true to submit to api.py on the server</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proto</span> <span class="o">=</span> <span class="n">proto</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="o">=</span> <span class="n">APIPY</span>
+
+<div class="viewcode-block" id="CuckooAPI.getcuckoostatus"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.getcuckoostatus">[docs]</a>    <span class="k">def</span> <span class="nf">getcuckoostatus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get the status of the Cuckoo instance.</span>
+
+<span class="sd">        :returns: Returns the status as a dictionary.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/cuckoo/status&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.listmachines"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.listmachines">[docs]</a>    <span class="k">def</span> <span class="nf">listmachines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lists the machines available for analysis.</span>
+
+<span class="sd">        :returns: Returns the list of machines as a list.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/machines/list&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.viewmachine"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.viewmachine">[docs]</a>    <span class="k">def</span> <span class="nf">viewmachine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lists the details about an analysis machine.</span>
+
+<span class="sd">        :param vmname: The vm name for the machine to be listed</span>
+<span class="sd">        :returns: Returns the dictionary of the machine specifics</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="k">if</span> <span class="n">vmname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoVM</span><span class="p">(</span><span class="n">vmname</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/machines/view/&quot;</span><span class="o">+</span><span class="n">vmname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskslist"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskslist">[docs]</a>    <span class="k">def</span> <span class="nf">taskslist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lists the tasks in the Cuckoo DB.</span>
+
+<span class="sd">        :param limit: Limit to this many results (Optional)</span>
+<span class="sd">        :param offset: Offset the output to offset in the total task list</span>
+<span class="sd">            and requires limit above. (Optional)</span>
+<span class="sd">        :returns: Returns a list of task details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/list&quot;</span>
+        <span class="k">if</span> <span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskview"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskview">[docs]</a>    <span class="k">def</span> <span class="nf">taskview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View the task for the task ID.</span>
+
+<span class="sd">        :param taskid: The ID of the task to view.</span>
+<span class="sd">        :returns: Returns a dict of task details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/tasks/view/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskstatus"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskstatus">[docs]</a>    <span class="k">def</span> <span class="nf">taskstatus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View the task status for the task ID.</span>
+
+<span class="sd">        :param taskid: The ID of the task to view.</span>
+<span class="sd">        :returns: Returns a dict of task details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/tasks/status/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># Not available with APIPY</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskiocs"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskiocs">[docs]</a>    <span class="k">def</span> <span class="nf">taskiocs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detailed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View the task IOCs for the task ID.</span>
+
+<span class="sd">        :param taskid: The ID of the task to view.</span>
+<span class="sd">        :param detailed: Set to true for detailed IOCs.</span>
+<span class="sd">        :returns: Returns a dict of task details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/iocs/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">detailed</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span> <span class="o">+</span> <span class="s2">&quot;/detailed&quot;</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># Not available with APIPY</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskreport"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskreport">[docs]</a>    <span class="k">def</span> <span class="nf">taskreport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reportformat</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View the report for the task ID.</span>
+
+<span class="sd">        :param taskid: The ID of the task to report.</span>
+<span class="sd">        :param reportformat: Right now only json is supported.</span>
+<span class="sd">        :returns: Returns a dict report for the task.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                                 <span class="s2">&quot;/tasks/report/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">reportformat</span><span class="p">,</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                                 <span class="s2">&quot;/tasks/get/report/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span>
+                                 <span class="n">reportformat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># Error on any other format for now...</span>
+        <span class="k">if</span> <span class="n">reportformat</span> <span class="o">!=</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotImplemented</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskdelete"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskdelete">[docs]</a>    <span class="k">def</span> <span class="nf">taskdelete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a task.</span>
+
+<span class="sd">        :param taskid: The task ID to delete.</span>
+<span class="sd">        :returns: Status</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/tasks/delete/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">),</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">500</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPITaskNoDelete</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.taskscreenshots"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.taskscreenshots">[docs]</a>    <span class="k">def</span> <span class="nf">taskscreenshots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">screenshot</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download screenshot(s).</span>
+
+<span class="sd">        :param taskid: The task ID for the screenshot(s).</span>
+<span class="sd">        :param filepath: Where to save the screenshot(s).</span>
+<span class="sd">            If you are using the Django web api the screenshots</span>
+<span class="sd">            are saved as .tar.bz!</span>
+<span class="sd">            If you are using the api.py script the screenshots are in .zip</span>
+<span class="sd">            format.</span>
+<span class="sd">            This function adds the apppropriate file extensions to the</span>
+<span class="sd">            filepath variable.</span>
+<span class="sd">        :param screenshot: The screenshot number to download.</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">+</span><span class="s2">&quot;.zip&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">+</span><span class="s2">&quot;.tar.bz&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/screenshots/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">screenshot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">screenshot</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/screenshot/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">screenshot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">screenshot</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.submitfile"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.submitfile">[docs]</a>    <span class="k">def</span> <span class="nf">submitfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to submit a local file to Cuckoo for analysis.</span>
+
+<span class="sd">        :param filepath: Path to a file to submit.</span>
+<span class="sd">        :param data: This is data containing any other options for the</span>
+<span class="sd">            submission form.  This is a dict of values accepted by the</span>
+<span class="sd">            create file options in the cuckoo-modified API.  More form</span>
+<span class="sd">            information can be found in the following link:</span>
+<span class="sd">            https://github.com/spender-sandbox/cuckoo-modified/blob/master/docs/book/src/usage/api.rst</span>
+<span class="sd">        :returns: Returns the json results of the submission</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Error if the file does not exist</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIInvalidFileException</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="c1"># Build the URL</span>
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/tasks/create/file&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sample</span><span class="p">:</span>
+            <span class="c1"># multipart_file = {&quot;file&quot;: (&quot;temp_file_name&quot;, sample)}</span>
+            <span class="n">multipart_file</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="n">sample</span><span class="p">)}</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">multipart_file</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.submiturl"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.submiturl">[docs]</a>    <span class="k">def</span> <span class="nf">submiturl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to submit a URL to Cuckoo for analysis.</span>
+
+<span class="sd">        :param url: URL to submit.</span>
+<span class="sd">        :param data: This is data containing any other options for the</span>
+<span class="sd">            submission form.  This is a dict of values accepted by the</span>
+<span class="sd">            create file options in the cuckoo-modified API.  More form</span>
+<span class="sd">            information can be found in the following link:</span>
+<span class="sd">            https://github.com/spender-sandbox/cuckoo-modified/blob/master/docs/book/src/usage/api.rst</span>
+<span class="sd">        :returns: Returns the json results of the submission</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the URL</span>
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/tasks/create/url&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="n">multipart_url</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)}</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">multipart_url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.tasksearch"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.tasksearch">[docs]</a>    <span class="k">def</span> <span class="nf">tasksearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hashid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hashtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        View information about a specific task by hash.</span>
+<span class="sd">        :param hashid: MD5, SHA1, or SHA256 hash to search.</span>
+<span class="sd">        :param hashtype: &#39;md5&#39;, &#39;sha1&#39;, or &#39;sha256&#39;</span>
+<span class="sd">        :returns: Returns a dict with results.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">hashid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoHash</span><span class="p">(</span><span class="n">hashid</span><span class="p">,</span> <span class="n">hashtype</span><span class="p">)</span>
+
+        <span class="c1"># Build the URL</span>
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/files/view/&quot;</span><span class="o">+</span><span class="n">hashtype</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">hashid</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># This appears to be unavailable in the documentation...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.fileview"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.fileview">[docs]</a>    <span class="k">def</span> <span class="nf">fileview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hashid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hashtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View the details for the file given the hash.</span>
+
+<span class="sd">        :param hashid: The hash or task ID to search.</span>
+<span class="sd">        :param hashtype: The following types of hash:</span>
+<span class="sd">            &#39;taskid&#39;, &#39;md5&#39;, &#39;sha256&#39;.  Any other values will cause</span>
+<span class="sd">            an error!</span>
+<span class="sd">        :returns: Returns the results of the file in a dict.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">hashid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoHash</span><span class="p">(</span><span class="n">hashid</span><span class="p">,</span> <span class="n">hashtype</span><span class="p">)</span>
+
+        <span class="c1"># Get rid of ints</span>
+        <span class="n">hashid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">hashid</span><span class="p">)</span>
+
+        <span class="c1"># Build the URL</span>
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="s2">&quot;/files/view/&quot;</span><span class="o">+</span><span class="n">hashtype</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">hashid</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># This appears to be unavailable in the documentation...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">hashtype</span> <span class="o">==</span> <span class="s2">&quot;sha1&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">hashtype</span> <span class="o">!=</span> <span class="s2">&quot;md5&quot;</span> <span class="ow">and</span> <span class="n">hashtype</span> <span class="o">!=</span> <span class="s2">&quot;sha1&quot;</span> <span class="ow">and</span> <span class="n">hashtype</span> <span class="o">!=</span> <span class="s2">&quot;sha256&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">jsonreply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">jsonreply</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.sampledownload"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.sampledownload">[docs]</a>    <span class="k">def</span> <span class="nf">sampledownload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hashid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hashtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download a file by hash.</span>
+
+<span class="sd">        :param hashid: The hash used to download the sample.</span>
+<span class="sd">        :param hashtype: The hash type, can be &quot;task&quot;, &quot;md5&quot;, sha1&quot;,</span>
+<span class="sd">            or &quot;sha256&quot;.  &quot;task&quot; means the task ID.</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get rid of ints</span>
+        <span class="n">hashid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">hashid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">hashid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">hashtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoHash</span><span class="p">(</span><span class="n">hashid</span><span class="p">,</span> <span class="n">hashtype</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/files/get/&quot;</span><span class="o">+</span><span class="n">hashid</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/files/get/&quot;</span><span class="o">+</span><span class="n">hashtype</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">hashid</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">hashtype</span> <span class="o">!=</span> <span class="s2">&quot;sha256&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.pcapdownload"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.pcapdownload">[docs]</a>    <span class="k">def</span> <span class="nf">pcapdownload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download a pcap by task ID.</span>
+
+<span class="sd">        :param taskid: The task ID to download the pcap.</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/pcap/get/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/pcap/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.droppeddownload"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.droppeddownload">[docs]</a>    <span class="k">def</span> <span class="nf">droppeddownload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download files dropped by sample identified by task ID.</span>
+
+<span class="sd">        :param taskid: The task ID of the sample.</span>
+<span class="sd">        :param filepath: The file path of the file to create/download.</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/dropped/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.surifilesdownload"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.surifilesdownload">[docs]</a>    <span class="k">def</span> <span class="nf">surifilesdownload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download SuriFiles for the sample identified by task ID.</span>
+
+<span class="sd">        :param taskid: The task ID of the sample.</span>
+<span class="sd">        :param filepath: The file path of the file to create/download.</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/surifile/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.fullmemdownload"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.fullmemdownload">[docs]</a>    <span class="k">def</span> <span class="nf">fullmemdownload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download SuriFiles for the sample identified by task ID.</span>
+
+<span class="sd">        :param taskid: The task ID of the sample.</span>
+<span class="sd">        :param filepath: The file path of the file to create/download.</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/fullmemory/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CuckooAPI.procmemdownload"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPI.procmemdownload">[docs]</a>    <span class="k">def</span> <span class="nf">procmemdownload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download SuriFiles for the sample identified by task ID.</span>
+
+<span class="sd">        :param taskid: The task ID of the sample.</span>
+<span class="sd">        :param filepath: The file path of the file to create/download.</span>
+<span class="sd">        :param pid: Process ID to download</span>
+<span class="sd">        :returns: Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taskid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">taskid</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINoTaskID</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIFileExists</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;/tasks/get/procmemory/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">taskid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">baseurl</span> <span class="o">=</span> <span class="n">baseurl</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+
+        <span class="n">apiurl</span> <span class="o">=</span> <span class="n">buildapiurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                             <span class="n">baseurl</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">APIPY</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPINotAvailable</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span>
+
+        <span class="c1"># Turn on stream to download files</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">apiurl</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ERROR CHECK request.status_code!</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># Read and write in chunks</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooAPIBadRequest</span><span class="p">(</span><span class="n">apiurl</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CuckooAPIInvalidFileException"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPIInvalidFileException">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPIInvalidFileException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a file is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI: Invalid File </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                           <span class="n">filepath</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPINotImplemented"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPINotImplemented">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPINotImplemented</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a call is not implemented, but is available.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apicall</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                           <span class="s2">&quot;CuckooAPI: Not Implemented </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">apicall</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPINotAvailable"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPINotAvailable">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPINotAvailable</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a call is not available on the remote server.</span>
+<span class="sd">    This signifies you may have used an API call meant for the Django</span>
+<span class="sd">    interface and sent it to the api.py interface, or vice versa.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apicall</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI: This API is not available for &quot;</span>
+                           <span class="s2">&quot;your target Cuckoo server.  Are you mixing &quot;</span>
+                           <span class="s2">&quot;calls from Django web interface with the &quot;</span>
+                           <span class="s2">&quot;api.py interface?  Or the other way around?&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPIBadRequest"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPIBadRequest">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPIBadRequest</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a Cuckoo machine is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apiurl</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI:  Unable to connect &quot;</span>
+                           <span class="s2">&quot;with URL </span><span class="si">{0}</span><span class="s2">  Are you mixing &quot;</span>
+                           <span class="s2">&quot;calls from Django web interface with the &quot;</span>
+                           <span class="s2">&quot;api.py interface?  Or the other way &quot;</span>
+                           <span class="s2">&quot;around?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">apiurl</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPINoVM"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPINoVM">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPINoVM</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a vm is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmname</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI:  VM </span><span class="si">{0}</span><span class="s2"> not available or invalid!&quot;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vmname</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPINoTaskID"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPINoTaskID">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPINoTaskID</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when an invalid task ID is used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI:  Task ID </span><span class="si">{0}</span><span class="s2"> not avilable or &quot;</span>
+                           <span class="s2">&quot;invalid!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taskid</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPITaskNoDelete"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPITaskNoDelete">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPITaskNoDelete</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a task cannot be deleted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taskid</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI: Task ID </span><span class="si">{0}</span><span class="s2"> cannot be &quot;</span>
+                           <span class="s2">&quot;deleted!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taskid</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPINoHash"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPINoHash">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPINoHash</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when an invalid file hash is used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hashid</span><span class="p">,</span> <span class="n">hashtype</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI:  Hash </span><span class="si">{0}</span><span class="s2"> of type </span><span class="si">{1}</span><span class="s2"> not &quot;</span>
+                           <span class="s2">&quot;available or invalid!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hashid</span><span class="p">,</span> <span class="n">hashtype</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CuckooAPIFileExists"><a class="viewcode-back" href="../CuckooAPI.html#CuckooAPI.CuckooAPIFileExists">[docs]</a><span class="k">class</span> <span class="nc">CuckooAPIFileExists</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for when a file is about to be saved over an existing file</span>
+<span class="sd">    or the file name is invalid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CuckooAPI: </span><span class="si">{0}</span><span class="s2"> already exists or &quot;</span>
+                           <span class="s2">&quot;is invalid!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span></div>
+
+<span class="c1">#</span>
+<span class="c1"># Call main if run as a script</span>
+<span class="c1">#</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Keith J. Jones.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

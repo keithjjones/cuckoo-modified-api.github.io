@@ -1,0 +1,602 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CuckooAPI package &#8212; cuckoo-modified-api 20160927.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '20160927.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="cuckoo-modified-api 20160927.1 documentation" href="index.html" />
+    <link rel="up" title="cuckoo-modified-api" href="modules.html" />
+    <link rel="prev" title="cuckoo-modified-api" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cuckooapi-package">
+<h1>CuckooAPI package<a class="headerlink" href="#cuckooapi-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-CuckooAPI">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CuckooAPI" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CuckooAPI.CuckooAPI">
+<em class="property">class </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPI</code><span class="sig-paren">(</span><em>host='127.0.0.1'</em>, <em>port=8000</em>, <em>proto='http'</em>, <em>APIPY=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Class to hold Cuckoo API data.</p>
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.droppeddownload">
+<code class="descname">droppeddownload</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.droppeddownload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.droppeddownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download files dropped by sample identified by task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The task ID of the sample.</li>
+<li><strong>filepath</strong> &#8211; The file path of the file to create/download.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.fileview">
+<code class="descname">fileview</code><span class="sig-paren">(</span><em>hashid=None</em>, <em>hashtype=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.fileview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.fileview" title="Permalink to this definition">¶</a></dt>
+<dd><p>View the details for the file given the hash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hashid</strong> &#8211; The hash or task ID to search.</li>
+<li><strong>hashtype</strong> &#8211; The following types of hash:
+&#8216;taskid&#8217;, &#8216;md5&#8217;, &#8216;sha256&#8217;.  Any other values will cause
+an error!</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns the results of the file in a dict.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.fullmemdownload">
+<code class="descname">fullmemdownload</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.fullmemdownload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.fullmemdownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download SuriFiles for the sample identified by task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The task ID of the sample.</li>
+<li><strong>filepath</strong> &#8211; The file path of the file to create/download.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.getcuckoostatus">
+<code class="descname">getcuckoostatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.getcuckoostatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.getcuckoostatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the status of the Cuckoo instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns the status as a dictionary.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.listmachines">
+<code class="descname">listmachines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.listmachines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.listmachines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the machines available for analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns the list of machines as a list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.pcapdownload">
+<code class="descname">pcapdownload</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.pcapdownload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.pcapdownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a pcap by task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>taskid</strong> &#8211; The task ID to download the pcap.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Nothing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.procmemdownload">
+<code class="descname">procmemdownload</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>filepath=None</em>, <em>pid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.procmemdownload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.procmemdownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download SuriFiles for the sample identified by task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The task ID of the sample.</li>
+<li><strong>filepath</strong> &#8211; The file path of the file to create/download.</li>
+<li><strong>pid</strong> &#8211; Process ID to download</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.sampledownload">
+<code class="descname">sampledownload</code><span class="sig-paren">(</span><em>hashid=None</em>, <em>hashtype=None</em>, <em>filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.sampledownload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.sampledownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file by hash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hashid</strong> &#8211; The hash used to download the sample.</li>
+<li><strong>hashtype</strong> &#8211; The hash type, can be &#8220;task&#8221;, &#8220;md5&#8221;, sha1&#8221;,
+or &#8220;sha256&#8221;.  &#8220;task&#8221; means the task ID.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.submitfile">
+<code class="descname">submitfile</code><span class="sig-paren">(</span><em>filepath</em>, <em>data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.submitfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.submitfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to submit a local file to Cuckoo for analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filepath</strong> &#8211; Path to a file to submit.</li>
+<li><strong>data</strong> &#8211; This is data containing any other options for the
+submission form.  This is a dict of values accepted by the
+create file options in the cuckoo-modified API.  More form
+information can be found in the following link:
+<a class="reference external" href="https://github.com/spender-sandbox/cuckoo-modified/blob/master/docs/book/src/usage/api.rst">https://github.com/spender-sandbox/cuckoo-modified/blob/master/docs/book/src/usage/api.rst</a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns the json results of the submission</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.submiturl">
+<code class="descname">submiturl</code><span class="sig-paren">(</span><em>url</em>, <em>data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.submiturl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.submiturl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to submit a URL to Cuckoo for analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> &#8211; URL to submit.</li>
+<li><strong>data</strong> &#8211; This is data containing any other options for the
+submission form.  This is a dict of values accepted by the
+create file options in the cuckoo-modified API.  More form
+information can be found in the following link:
+<a class="reference external" href="https://github.com/spender-sandbox/cuckoo-modified/blob/master/docs/book/src/usage/api.rst">https://github.com/spender-sandbox/cuckoo-modified/blob/master/docs/book/src/usage/api.rst</a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns the json results of the submission</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.surifilesdownload">
+<code class="descname">surifilesdownload</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.surifilesdownload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.surifilesdownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download SuriFiles for the sample identified by task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The task ID of the sample.</li>
+<li><strong>filepath</strong> &#8211; The file path of the file to create/download.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskdelete">
+<code class="descname">taskdelete</code><span class="sig-paren">(</span><em>taskid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskdelete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskdelete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a task.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>taskid</strong> &#8211; The task ID to delete.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Status</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskiocs">
+<code class="descname">taskiocs</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>detailed=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskiocs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskiocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>View the task IOCs for the task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The ID of the task to view.</li>
+<li><strong>detailed</strong> &#8211; Set to true for detailed IOCs.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a dict of task details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskreport">
+<code class="descname">taskreport</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>reportformat='json'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskreport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskreport" title="Permalink to this definition">¶</a></dt>
+<dd><p>View the report for the task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The ID of the task to report.</li>
+<li><strong>reportformat</strong> &#8211; Right now only json is supported.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a dict report for the task.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskscreenshots">
+<code class="descname">taskscreenshots</code><span class="sig-paren">(</span><em>taskid=None</em>, <em>filepath=None</em>, <em>screenshot=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskscreenshots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskscreenshots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download screenshot(s).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>taskid</strong> &#8211; The task ID for the screenshot(s).</li>
+<li><strong>filepath</strong> &#8211; Where to save the screenshot(s).
+If you are using the Django web api the screenshots
+are saved as .tar.bz!
+If you are using the api.py script the screenshots are in .zip
+format.
+This function adds the apppropriate file extensions to the
+filepath variable.</li>
+<li><strong>screenshot</strong> &#8211; The screenshot number to download.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.tasksearch">
+<code class="descname">tasksearch</code><span class="sig-paren">(</span><em>hashid=None</em>, <em>hashtype=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.tasksearch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.tasksearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>View information about a specific task by hash.
+:param hashid: MD5, SHA1, or SHA256 hash to search.
+:param hashtype: &#8216;md5&#8217;, &#8216;sha1&#8217;, or &#8216;sha256&#8217;
+:returns: Returns a dict with results.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskslist">
+<code class="descname">taskslist</code><span class="sig-paren">(</span><em>limit=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskslist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskslist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the tasks in the Cuckoo DB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>limit</strong> &#8211; Limit to this many results (Optional)</li>
+<li><strong>offset</strong> &#8211; Offset the output to offset in the total task list
+and requires limit above. (Optional)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a list of task details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskstatus">
+<code class="descname">taskstatus</code><span class="sig-paren">(</span><em>taskid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskstatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskstatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>View the task status for the task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>taskid</strong> &#8211; The ID of the task to view.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns a dict of task details.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.taskview">
+<code class="descname">taskview</code><span class="sig-paren">(</span><em>taskid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.taskview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.taskview" title="Permalink to this definition">¶</a></dt>
+<dd><p>View the task for the task ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>taskid</strong> &#8211; The ID of the task to view.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns a dict of task details.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="CuckooAPI.CuckooAPI.viewmachine">
+<code class="descname">viewmachine</code><span class="sig-paren">(</span><em>vmname=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPI.viewmachine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPI.viewmachine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the details about an analysis machine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmname</strong> &#8211; The vm name for the machine to be listed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns the dictionary of the machine specifics</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPIBadRequest">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPIBadRequest</code><span class="sig-paren">(</span><em>apiurl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPIBadRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPIBadRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a Cuckoo machine is not found.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPIFileExists">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPIFileExists</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPIFileExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPIFileExists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a file is about to be saved over an existing file
+or the file name is invalid.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPIInvalidFileException">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPIInvalidFileException</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPIInvalidFileException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPIInvalidFileException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a file is not found.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPINoHash">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPINoHash</code><span class="sig-paren">(</span><em>hashid</em>, <em>hashtype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPINoHash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPINoHash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when an invalid file hash is used.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPINoTaskID">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPINoTaskID</code><span class="sig-paren">(</span><em>taskid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPINoTaskID"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPINoTaskID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when an invalid task ID is used.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPINoVM">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPINoVM</code><span class="sig-paren">(</span><em>vmname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPINoVM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPINoVM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a vm is not found.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPINotAvailable">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPINotAvailable</code><span class="sig-paren">(</span><em>apicall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPINotAvailable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPINotAvailable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a call is not available on the remote server.
+This signifies you may have used an API call meant for the Django
+interface and sent it to the api.py interface, or vice versa.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPINotImplemented">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPINotImplemented</code><span class="sig-paren">(</span><em>apicall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPINotImplemented"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPINotImplemented" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a call is not implemented, but is available.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="CuckooAPI.CuckooAPITaskNoDelete">
+<em class="property">exception </em><code class="descclassname">CuckooAPI.</code><code class="descname">CuckooAPITaskNoDelete</code><span class="sig-paren">(</span><em>taskid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#CuckooAPITaskNoDelete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.CuckooAPITaskNoDelete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Exception for when a task cannot be deleted.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CuckooAPI.buildapiurl">
+<code class="descclassname">CuckooAPI.</code><code class="descname">buildapiurl</code><span class="sig-paren">(</span><em>proto='http'</em>, <em>host='127.0.0.1'</em>, <em>port=8000</em>, <em>action=None</em>, <em>APIPY=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#buildapiurl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.buildapiurl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a URL for the Cuckoo API</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>proto</strong> &#8211; http or https</li>
+<li><strong>host</strong> &#8211; Hostname or IP address</li>
+<li><strong>port</strong> &#8211; The port of the Cuckoo API server</li>
+<li><strong>action</strong> &#8211; The action to perform with the API</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The URL</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="CuckooAPI.main">
+<code class="descclassname">CuckooAPI.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CuckooAPI.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CuckooAPI.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function for this library</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CuckooAPI package</a><ul>
+<li><a class="reference internal" href="#module-CuckooAPI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">cuckoo-modified-api</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">cuckoo-modified-api</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CuckooAPI.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Keith J. Jones.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/CuckooAPI.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
